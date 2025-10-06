@@ -4,6 +4,6 @@
    git add .
    git commit -m "Initial commit - School Website"
    git branch -M main
-   git remote add origin https://github.com/osm/school-website.git
+   git remote add origin https://github.com/growellschool/OSM
    git push -u origin main
    ```
