@@ -1,0 +1,392 @@
+<!--
+Single-file responsive school website template
+How to use:
+1. Save this file as index.html
+2. Open in browser to preview.
+3. To go live: push to GitHub and enable GitHub Pages OR upload to any static host.
+
+Want: multi-page version, CMS integration (Netlify CMS, WordPress), React version, or deploy instructions? Tell me and I'll update.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Maple Grove School | Compassion • Curiosity • Excellence</title>
+  <meta name="description" content="Maple Grove School — A welcoming K–12 community focused on academic excellence, arts, and character development.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7fafc; --card:#ffffff; --muted:#6b7280; --accent:#0ea5a4; --accent-700:#08938f; --glass: rgba(255,255,255,0.6);
+      --radius:14px; --max-width:1100px; --shadow: 0 8px 30px rgba(2,6,23,0.08);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(180deg,#f8fafc 0%, #f1f5f9 100%); color:#0f172a; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+    .container{max-width:var(--max-width); margin:0 auto; padding:28px}
+
+    /* Header */
+    header{background:transparent; position:sticky; top:0; z-index:40; backdrop-filter: blur(6px);}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-700));display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
+    .site-title{font-weight:700}
+    nav ul{display:flex;gap:14px;list-style:none;padding:0;margin:0}
+    nav a{color:var(--muted); text-decoration:none; font-weight:600}
+    .cta{padding:10px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:700}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1fr;gap:24px;align-items:center;padding:48px 0}
+    .hero-inner{display:flex;flex-direction:column;gap:18px}
+    h1{font-size:clamp(1.6rem,3.6vw,2.6rem);margin:0}
+    p.lead{color:var(--muted);max-width:66ch}
+    .hero-actions{display:flex;gap:12px}
+
+    /* Cards */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:22px}
+    .card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+
+    /* Info sections */
+    section{padding:40px 0}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+    .features{display:grid;gap:12px}
+    .feature{display:flex;gap:12px;align-items:flex-start}
+    .feature .dot{width:46px;height:46px;border-radius:10px;background:var(--glass);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* Staff */
+    .staff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px}
+    .staff{background:var(--card);border-radius:12px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+    .staff img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+
+    /* Events */
+    .events{display:flex;flex-direction:column;gap:12px}
+    .event{display:flex;align-items:center;gap:12px;padding:12px;background:linear-gradient(90deg,#ffffff,#fbfbff);border-radius:10px}
+    .date-pill{min-width:68px;text-align:center;padding:8px;border-radius:8px;background:#eef2ff;font-weight:700}
+
+    /* Footer */
+    footer{padding:32px 0;color:var(--muted)}
+    .footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+    /* Responsive */
+    @media (min-width:900px){
+      .hero{grid-template-columns:1fr 420px}
+      .grid{grid-template-columns:1fr 1fr}
+      header .container{padding:18px 28px}
+    }
+    @media (max-width:600px){
+      nav ul{display:none}
+      .mobile-menu-btn{display:inline-flex}
+    }
+    .mobile-menu-btn{display:none;align-items:center;gap:8px;background:none;border:0}
+    .mobile-nav{display:none}
+    .mobile-nav.open{display:block;padding:12px}
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:8px 10px;border-radius:999px;background:#f1f5f9;font-weight:700}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+    /* Simple contact form */
+    form input, form textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #e6eef2}
+    form button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main navigation">
+      <div class="brand">
+        <div class="logo" aria-hidden>MG</div>
+        <div>
+          <div class="site-title">Maple Grove School</div>
+          <div class="muted" style="font-size:13px">K–12 • Excellence in learning</div>
+        </div>
+      </div>
+
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#programs">Programs</a></li>
+          <li><a href="#staff">Staff</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <a class="pill" href="#visit">Book a visit</a>
+        <a class="cta" href="#admissions">Apply</a>
+        <button class="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-nav" id="menuBtn">
+          <span class="sr-only">Open menu</span>
+          ☰
+        </button>
+      </div>
+    </div>
+    <div id="mobile-nav" class="mobile-nav" style="padding:0 28px">
+      <ul style="list-style:none;padding:12px 0;margin:0;display:flex;flex-direction:column;gap:8px">
+        <li><a href="#about">About</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#staff">Staff</a></li>
+        <li><a href="#admissions">Admissions</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero" aria-labelledby="main-heading">
+      <div class="hero-inner">
+        <div style="max-width:60ch">
+          <div class="pill">Welcome to our community</div>
+          <h1 id="main-heading">Where every student is seen, supported & inspired</h1>
+          <p class="lead">Maple Grove School combines strong academics, creative arts, and athletics to develop curious, confident learners. Small class sizes, experienced teachers, and a caring environment help each child thrive.</p>
+          <div class="hero-actions">
+            <a class="cta" href="#admissions">Apply now</a>
+            <a href="#programs" style="padding:10px 14px;border-radius:10px;background:transparent;border:1px solid #e6eef2;text-decoration:none;font-weight:700">Our programs</a>
+          </div>
+        </div>
+
+        <aside aria-label="Quick facts" style="width:100%">
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div class="muted">Enrollment</div>
+                <div style="font-size:24px;font-weight:800">820</div>
+              </div>
+              <div>
+                <div class="muted">Student-teacher</div>
+                <div style="font-size:24px;font-weight:800">14:1</div>
+              </div>
+            </div>
+            <div class="cards" style="margin-top:12px">
+              <div class="card">
+                <div class="muted">Grades</div>
+                <div style="font-weight:800">K — 12</div>
+              </div>
+              <div class="card">
+                <div class="muted">Language</div>
+                <div style="font-weight:800">English, French</div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div style="grid-column:1/-1;display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+        <div class="card" style="flex:1;min-width:220px">Safe campus • After-school care • Bus routes</div>
+        <div class="card" style="flex:1;min-width:220px">Music & arts studios • Sports fields • Robotics lab</div>
+        <div class="card" style="flex:1;min-width:220px">Scholarships & bursaries • Community partnerships</div>
+      </div>
+    </section>
+
+    <section id="about" class="container" aria-labelledby="about-heading">
+      <div class="grid">
+        <div>
+          <h2 id="about-heading">About Maple Grove</h2>
+          <p class="muted">Founded in 1989, Maple Grove School serves students from kindergarten through grade 12. We emphasize academic rigor, social-emotional learning, and character development. Our graduates go on to attend top universities and pursue meaningful careers.</p>
+
+          <div class="features" style="margin-top:18px">
+            <div class="feature">
+              <div class="dot">A</div>
+              <div>
+                <strong>Academics</strong>
+                <div class="muted">Rigorous core curriculum with AP and elective options in arts, coding, and languages.</div>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="dot">C</div>
+              <div>
+                <strong>Community</strong>
+                <div class="muted">Parent partnerships, service learning, and inclusive events year-round.</div>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="dot">S</div>
+              <div>
+                <strong>Student Support</strong>
+                <div class="muted">Counseling, learning support services, and mentorship programs.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">Upcoming open houses</h3>
+            <div class="events">
+              <div class="event">
+                <div class="date-pill">Oct 11</div>
+                <div>
+                  <strong>Elementary Open House</strong>
+                  <div class="muted">9:00 AM — 11:00 AM • Campus tour & teacher meet-and-greet</div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="date-pill">Nov 02</div>
+                <div>
+                  <strong>High School Showcase</strong>
+                  <div class="muted">6:00 PM — 8:00 PM • Student performances & academic fair</div>
+                </div>
+              </div>
+            </div>
+            <a href="#visit" style="display:inline-block;margin-top:12px;text-decoration:none;font-weight:700">Reserve a spot →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="programs" class="container" aria-labelledby="programs-heading">
+      <h2 id="programs-heading">Programs & Curriculum</h2>
+      <p class="muted">From early literacy to advanced STEM, our curriculum is designed to meet students where they are and push them to their potential.</p>
+
+      <div class="cards" style="margin-top:18px">
+        <div class="card">
+          <h3 style="margin:0 0 6px 0">Elementary</h3>
+          <div class="muted">Play-based learning, foundational literacy & numeracy, arts integration.</div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px 0">Middle School</h3>
+          <div class="muted">Project-based learning, robotics, world languages, and advisory program.</div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px 0">High School</h3>
+          <div class="muted">Advanced Placement, career pathways, internships, and college counseling.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="staff" class="container" aria-labelledby="staff-heading">
+      <h2 id="staff-heading">Meet our staff</h2>
+      <p class="muted">Experienced educators dedicated to student growth.</p>
+
+      <div class="staff-grid" style="margin-top:18px">
+        <div class="staff">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=abcd" alt="Principal - Jane Doe">
+          <div style="font-weight:800;margin-top:10px">Jane Doe</div>
+          <div class="muted">Principal</div>
+        </div>
+        <div class="staff">
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=efgh" alt="VP Academics - John Smith">
+          <div style="font-weight:800;margin-top:10px">John Smith</div>
+          <div class="muted">VP, Academics</div>
+        </div>
+        <div class="staff">
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=ijkl" alt="Counselor - Aisha Khan">
+          <div style="font-weight:800;margin-top:10px">Aisha Khan</div>
+          <div class="muted">Student Support</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="admissions" class="container" aria-labelledby="admissions-heading">
+      <div class="grid">
+        <div>
+          <h2 id="admissions-heading">Admissions & tuition</h2>
+          <p class="muted">We accept applications year-round. Financial aid and sibling discounts available. Contact admissions for details on start dates and required documents.</p>
+          <ul class="muted">
+            <li>Application checklist (birth certificate, proof of residency, immunization records)</li>
+            <li>Tuition plans & payment options</li>
+            <li>Scholarships for exceptional students</li>
+          </ul>
+          <a href="#contact" style="display:inline-block;margin-top:12px;font-weight:700">Contact admissions →</a>
+        </div>
+        <div>
+          <div class="card">
+            <h3 style="margin-top:0">Request more info</h3>
+            <form id="contactForm" onsubmit="submitForm(event)">
+              <label class="sr-only" for="name">Full name</label>
+              <input id="name" type="text" placeholder="Your full name" required>
+              <label class="sr-only" for="email">Email</label>
+              <input id="email" type="email" placeholder="you@example.com" required style="margin-top:8px">
+              <label class="sr-only" for="message">Message</label>
+              <textarea id="message" placeholder="Tell us how we can help" rows="4" style="margin-top:8px"></textarea>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <button type="submit">Send message</button>
+                <a href="mailto:admissions@maplegrove.edu" style="padding:10px 14px;border-radius:10px;background:#f1f5f9;text-decoration:none;color:var(--muted);font-weight:700">Email admissions</a>
+              </div>
+              <div id="formStatus" style="margin-top:8px;color:var(--muted)"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact & Visit</h2>
+      <div class="grid">
+        <div>
+          <p class="muted"><strong>Address:</strong> 123 Maple Ave, Hometown, State • <strong>Phone:</strong> (555) 123-4567</p>
+          <p class="muted">Office hours: Mon–Fri 8:30 AM – 4:30 PM</p>
+          <h4>Get directions</h4>
+          <!-- Replace src with your Google Maps embed or static map -->
+          <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow);margin-top:8px">
+            <iframe title="Map" style="width:100%;min-height:240px;border:0" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d144.9537363153161!3d-37.81627997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d43f1f2f2f1%3A0x5045675218ce6e0!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2sus!4v1611111111111" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div>
+          <h4>Social</h4>
+          <p class="muted">Follow us for updates, events, and student highlights.</p>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <a href="#" aria-label="Facebook">Facebook</a>
+            <a href="#" aria-label="Instagram">Instagram</a>
+            <a href="#" aria-label="YouTube">YouTube</a>
+          </div>
+
+          <h4 style="margin-top:18px">Schedule a visit</h4>
+          <p class="muted">Tours available weekdays and select Saturdays. Use the online form or call the office.</p>
+          <a href="#visit" class="cta" style="display:inline-block;margin-top:8px">Book a visit</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div style="font-weight:800">Maple Grove School</div>
+        <div class="muted">© <span id="year"></span> Maple Grove School. All rights reserved.</div>
+      </div>
+      <div style="text-align:right">
+        <div class="muted">Privacy policy • Terms</div>
+        <div style="margin-top:8px" class="muted">Designed by Maple Grove • Built with care</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobile-nav');
+    menuBtn && menuBtn.addEventListener('click', ()=>{
+      const open = mobileNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open);
+    });
+
+    // Simple contact form behavior (non-server) - shows message and clears
+    function submitForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const status = document.getElementById('formStatus');
+      // Basic validation
+      if(!name || !email){
+        status.textContent = 'Please provide name and email.';
+        return;
+      }
+      // Simulate submission
+      status.textContent = 'Thanks! Your message has been noted. Admissions will follow up within 2 business days.';
+      document.getElementById('contactForm').reset();
+    }
+
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
